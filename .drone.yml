@@ -1,10 +1,17 @@
-image: golang
 workspace:
   base: /go
   path: src/github.com/drone/drone
-script:
-  - go get github.com/tools/godep
-  - godep restore
-  - go install github.com/panduroab/taskmanager
-commands:
-  - /go/bin/taskmanager
+
+build:
+  image: golang:1.5
+  environment:
+    - GO15VENDOREXPERIMENT=1
+    - CGO_ENABLED=0
+  commands:
+    - go get github.com/tools/godep
+    - godep restore
+
+publish:
+  coverage:
+    when:
+      branch: master
