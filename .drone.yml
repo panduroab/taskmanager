@@ -3,13 +3,13 @@ workspace:
   path: src/github.com/drone/drone
 
 build:
-  image: golang:1.5
+  image: golang:1.6
   environment:
-    - GO15VENDOREXPERIMENT=1
-    - CGO_ENABLED=0
+    - GOPATH=/go
   commands:
     - go get github.com/tools/godep
     - godep restore
+    - go install github.com/panduroab/taskmanager
 
 publish:
   coverage:
